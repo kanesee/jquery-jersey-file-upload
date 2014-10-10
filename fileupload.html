@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>File Upload</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+
+        $('#submitJquery').click(submitForm);
+        console.log('hello');
+
+      });      
+
+  	  function submitForm() {
+        var file = $('input[name="uploadfile"').get(0).files[0];
+
+        var formData = new FormData();
+        formData.append('uploadfile', file);
+
+        $.ajax({
+            url: "/entitybase/rest/file",
+            type: 'POST',
+            xhr: function() {  // Custom XMLHttpRequest
+              var myXhr = $.ajaxSettings.xhr();
+              return myXhr;
+            },
+            // beforeSend: beforeSendHandler,
+            success: function(data) {
+              alert('successfully uploaded file with '+data+' lines');
+            },
+            // Form data
+            data: formData,
+            //Options to tell jQuery not to process data or worry about content-type.
+            cache: false,
+            contentType: false,
+            processData: false
+          });
+      }
+
+    </script>
+  </head>
+  <body>
+
+    <form enctype="multipart/form-data" method="post" action="../rest/file">
+      <div class="form-group">
+        <label for="uploadfile"><b>File</b></label>
+        <input type="file" name="uploadfile">
+      </div>
+      <p>
+      </p>
+      <a id="submitJquery" href="#">Submit via JQuery</a>
+      <input type="submit">
+      <p>
+    </form>
+
+  </body>
+</html>
