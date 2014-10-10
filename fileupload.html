@@ -23,7 +23,7 @@
         formData.append('uploadfile', file);
 
         $.ajax({
-            url: "/entitybase/rest/file",
+            url: "../rest/file",
             type: 'POST',
             xhr: function() {  // Custom XMLHttpRequest
               var myXhr = $.ajaxSettings.xhr();
